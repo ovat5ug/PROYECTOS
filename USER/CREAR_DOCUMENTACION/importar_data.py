@@ -1,9 +1,5 @@
 import os
 import csv
-from USER import registrar
-
-nombre_del_archivo = input( "ingrese el nombre para el archivo: ")
-lista_datos = registrar.lista_datos
 
 def creaando_csv_si_no_existe(ruta_archivo, encabezados=None, lista_datos=None):
     try:
@@ -41,3 +37,6 @@ def creaando_csv_si_no_existe(ruta_archivo, encabezados=None, lista_datos=None):
     except Exception as e:# manejo de exepcion de argumentos invalidos
         print(f"Error al crear el archivo CSV: {e}")
         return False
+
+# res_funcion = creaando_csv_si_no_existe("dat//mkv.csv")# crea la ruta y el archivo
+# print("pruebba aman",res_funcion)
