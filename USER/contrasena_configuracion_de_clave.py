@@ -20,8 +20,8 @@ class hacer_clave:
             return None
         return open("clave.key", "rb").read()
     
-#     def cargar_clave():
-#         return clave # retorna la clave que tiene 2 bytes y estar en base64
+    # def cargar_clave():
+    #     return clave # retorna la clave que tiene 2 bytes y estar en base64
 #clave = b'XFLleU2plW6hTbOqr4vrQ0xk6jqmZajr9Lm8NMXvh78='# por si deceas ejecutar el codigo sin usar 
                                                         # la funsion de arriba y asi poder descifrar
                                                         # las pass de documento "prueba.csv"
