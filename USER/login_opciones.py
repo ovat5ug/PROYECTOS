@@ -1,5 +1,6 @@
 import login
 import crear_archivo
+import funciones
 
 # ======= MENÚ =======
 if __name__ == "__main__":
@@ -15,6 +16,7 @@ if __name__ == "__main__":
 
         if opcion == "1":
             login.login()
+            funciones.operaciones_aritmeticas()
             break
         elif opcion == "2":
             crear_archivo.docCreado(False)# validar_cuantos_datos introducira el usuario
