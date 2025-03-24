@@ -19,7 +19,7 @@ if __name__ == "__main__":
             calculos_aritmeticos.operaciones_aritmeticas()
             break
         elif opcion == "2":
-            crear_archivo.docCreado(False)# validar_cuantos_datos introducira el usuario
+            crear_archivo.docCreado(False)# valida_cuantos_datos introducira el usuario
             print("\n✅ Usuario Registrado...")
             print("👋 Saliendo del sistema...")
             break
@@ -30,6 +30,6 @@ if __name__ == "__main__":
             print("\n⚠ Opción inválida, intente de nuevo.")
 
 # usuario # Marcos
-#  correo # maksmaskmas
+#  correo # antonio22@gmail.com.org
 #    pass # skmkakskss
 #    hash # gAAAAABn21mu_iI1saixEn0SyoWsgjypypzmZTzI3KMyq4jEzYvurMS3NcAdDBysk3fTvxJkE4QTM62DpbcJtL-gHUhZt66JPQ==
