@@ -1,6 +1,6 @@
 import login
 import crear_archivo
-import calculos_aritmeticos
+import FUNCIONES_COMUNES.calculos_aritmeticos as calculos_aritmeticos
 
 # ======= MENÚ =======
 if __name__ == "__main__":
