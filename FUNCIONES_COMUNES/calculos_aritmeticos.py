@@ -35,7 +35,6 @@ def tRestar():
     return print(f"con los numeros introducidos: {lista} el resultado de la resta es: {resultado}"),operaciones_aritmeticas()
 
 def tProducto():
-    while True:  # Se repetirá hasta que se obtengan datos válidos
         try:
             cantidad_de_numeros = int(input("introdusca la cantidad de numeros que va a usar: "))
             if cantidad_de_numeros >= 2:
@@ -112,8 +111,4 @@ def operaciones_aritmeticas():
 # print(tSumar())
 # print(tRestar())
 # print(tProducto())
-# print(tDivision())s
-
-
-
-
+# print(tDivision())
