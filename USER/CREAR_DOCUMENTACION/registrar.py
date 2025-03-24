@@ -1,6 +1,6 @@
 from datetime import datetime  # datetime
 from USER import users
-from USER import contrasena
+from PASS_MANAGER import contrasena
 
 def registrar(validar_cuantos_datos=True):
     while True:
