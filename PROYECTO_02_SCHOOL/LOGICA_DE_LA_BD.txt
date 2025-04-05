@@ -1,0 +1,23 @@
+													        (inscripcion seria la misma)	    11-calificaciones
+1-persona						5-empleado				        9-inscripcion					id_calificaciones int PK
+id_persona int			PK		id_empleado	int	PK		        id_inscripcion int			PK	id_estudiante int   FK
+nombre	varchar(50)				id_persona int	FK			    id_matricula int			FK	id_materia int      FK
+apellido varchar(50)			id_cargo int	FK			    id_materia int				FK	nMes (feb-mar-etc) varchar(15)
+direccion varchar(100)											horario(AM/PM) varchar(10)      n_actividades decimal(2,2)
+correo electronico varchar(50)	7-estudiantes												    n_laboratorio decimal(2,2)
+telefono varchar(50)			id_estudiante int   PK		    6-materia						n_examen decimal(2,2)
+.							    id_grado int	    FK			id_materia int			    PK	n_prom_final decimal(2,2)
+10-padres_de_familia			nombre varchar(50)  FK			id_empleado(docente) int    FK	
+id_padres int		PK			apellido varchar(50)			nMateria varchar(50)						
+id_persona int		FK			correo electronico varchar(50)  Descripcion	varchar(50) 		4-estado			
+id_estudiante int	FK			descripcion varchar(50)                                         id_estado           PK
+.							         	                        3-cargo                         nEstado varchar(20)
+2-grado						    			                    id_cargo int        PK          descripcion varchar(50)
+id_grado int			PK		8-matricula						nCargo varchar(20)
+nGrado varchar(20)				id_matricula int	PK		    Descripcion varchar(50)
+aula  varchar(20)				id_estudiante int   FK
+ubicacion  varchar(50)		    id_estado           FK			
+descripcion	 varchar(50)				
+							
+							
+							
