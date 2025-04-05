@@ -14,12 +14,13 @@ def login():
             login_usuario = login_users.Login(usuario.email,usuario.password)
             
         # ====================== HACER CAMBIO SI ES NECESRIO ===============================================
+            uCarpeta = "PROYECTO_01_USERS/DATA/"
             nArchivo = "prueba" # poner el nombre de tu archivo
             aExtencion = ".csv" # poner la extencion del archivo que sea valida
             # print(f"\\DATA\\{nArchivo}{aExtencion}")
         # ==================================================================================================
 
-            with open(f"DATA/{nArchivo}{aExtencion}",encoding="utf-8",) as file:
+            with open(f"{uCarpeta}{nArchivo}{aExtencion}",encoding="utf-8",) as file:
                     encontrado = False  # # Variable para verificar si se encontró el usuario
                     usuario = csv.reader(file)
                     for row in  usuario:
