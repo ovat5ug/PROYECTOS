@@ -6,8 +6,8 @@ create table persona(
     segundo_nombre varchar(10),
     apellido_paterno varchar(10),
     apellido_materno varchar(10),
-    direccion varchar(50),
-    correo_electronico varchar(20),
+    direccion varchar(100),
+    correo_electronico varchar(50),
     telefono varchar(10)
 )
 GO
@@ -23,15 +23,15 @@ GO
 -----CARGO----------------------------------------------------------------
 create table cargo(
     id_cargo int identity (1,1) primary key,
-    ncargo varchar(20),
-    descripcion varchar(50)
+    ncargo varchar(30),
+    descripcion varchar(100)
 )
 GO
 -----ESTADO---------------------------------------------------------------
 create table estado(
     id_estado int identity (1,1) primary key,
     nEstado varchar(20),
-    descripcion varchar(50)
+    descripcion varchar(100)
 )
 GO
 -----EMPLEADO-------------------------------------------------------------
@@ -47,38 +47,43 @@ GO
 create table materia(
 	id_materia int identity (1,1) primary key,
     id_empleado int,
-    nMateria varchar(15),
-    Descripcion varchar(50)
+    nMateria varchar(20),
+    Descripcion varchar(100)
 	foreign key (id_empleado) references empleado(id_empleado)
 )
 GO
 -----ESTUDIANTE-----------------------------------------------------------
 create table estudiante(
-    id_estudiante int identity (1,1) primary key,
+    -- id_estudiante int identity (1,1) primary key,
+    id_estudiante int primary key,
     id_grado int,
+	carnet varchar(15),
 	primer_nombre varchar(10),
     segundo_nombre varchar(10),
     apellido_paterno varchar(10),
     apellido_materno varchar(10),
-    correo_electronico varchar(20),
+    correo_electronico varchar(50),
 	foreign key (id_grado) references grado(id_grado)
 )
 GO
 -----MATRICULA-------------------------------------------------------------
 create table matricula(
     id_matricula int identity (1,1) primary key,
-    id_estudiante int,
     id_estado int
-	foreign key (id_estudiante) references estudiante(id_estudiante),
 	foreign key (id_estado) references estado(id_estado)
 )
+GO
+alter table estudiante
+add constraint fk_id_estudiante
+foreign key (id_estudiante)
+references matricula(id_matricula)
 GO
 -----INSCRIPCION-----------------------------------------------------------
 create table inscripcion(
 	id_inscripcion int identity (1,1) primary key,
     id_matricula int,
     id_materia int,
-    horario char(6)
+    horario varchar(15)
 	foreign key (id_matricula) references matricula(id_matricula),
 	foreign key (id_materia) references materia(id_materia)
 )
@@ -98,12 +103,10 @@ create table calificaciones(
     id_materia int,
     id_estudiante int,
 	nMes varchar(15),
-	n_actividades decimal(2,2),
-	n_laboratorio decimal(2,2),
-	n_examen decimal(2,2),
-	n_prom_final decimal(2,2)
+	n_actividades numeric(4,2),
+	n_laboratorio numeric(4,2),
+	n_examen numeric(4,2),
+	n_prom_final numeric(4,2)
 	foreign key (id_materia) references materia(id_materia),
 	foreign key (id_estudiante) references estudiante(id_estudiante)
 )
-
-
