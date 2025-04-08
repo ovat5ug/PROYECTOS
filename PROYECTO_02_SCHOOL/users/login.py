@@ -1,9 +1,9 @@
 import csv
 import os
-import PROYECTO_02_SCHOOL.users.users as users
-import PROYECTO_02_SCHOOL.users.login_users as login_users
-import PROYECTO_02_SCHOOL.security.contrasena_encriptacion_y_desencriptacion as contrasena
-import PROYECTO_02_SCHOOL.roots.rutinhas as r2
+import users.users as users
+import users.login_users as login_users
+import security.contrasena_encriptacion_y_desencriptacion as contrasena
+import roots.rutinhas as r2
 # ======= Función para iniciar sesión =======
 def login():
     # while True:

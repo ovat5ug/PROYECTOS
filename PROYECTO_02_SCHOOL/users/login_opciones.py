@@ -1,5 +1,5 @@
-import PROYECTO_02_SCHOOL.users.login as login
-import PROYECTO_02_SCHOOL.data_analitycs.crear_archivo as crear_archivo
+import users.login as login
+import data_analitycs.crear_archivo as crear_archivo
 
 # ======= MENÚ =======
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-import PROYECTO_02_SCHOOL.users.users as users
+import users.users as users
 
 class Login(users.Users):    
     def __init__(self, email, password):
