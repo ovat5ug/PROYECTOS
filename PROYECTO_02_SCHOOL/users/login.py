@@ -5,7 +5,7 @@ import users.login_users as login_users
 import security.contrasena_encriptacion_y_desencriptacion as contrasena
 import roots.rutinhas as r2
 # ======= Función para iniciar sesión =======
-def login():
+def validar_login():
     # while True:
         try:
             correo = input("Ingrese su correo: ").strip()
@@ -18,15 +18,15 @@ def login():
             archivo = r2.ac.archivo
         # ==================================================================================================
 
-            with open(f"{uCarpeta}{archivo}",encoding="utf-8",) as file:
+            with open(f"{uCarpeta}/{archivo}",encoding="utf-8",) as file:
                     encontrado = False  # # Variable para verificar si se encontró el usuario
                     usuario = csv.reader(file)
                     for row in  usuario:
-                        # print(row[1],row[2]) # correo y contraseña       
+                        # print(sow[0],row[1],row[2]) # nombre, correo y contraseña       
                         # Comparar correo y contraseña
                         if row[1] == login_usuario.email and contrasena.desencriptar_clave.desencriptar(row[2][:]) == login_usuario.password:
                             desen=contrasena.desencriptar_clave.desencriptar(row[2][:])
-                            print(f"\n✅ Inicio de sesión exitoso.{desen}")
+                            print(f"\n✅ {row[0]} has hecho inicio de sesión exitoso con: {login_usuario.email}")
                             encontrado=True # Marcamos que el usuario fue encontrado
                             break 
                     if not encontrado:                
@@ -35,4 +35,4 @@ def login():
         except UnboundLocalError as e:   
             print("⚠️ Error: Ingrese un valor válido.")
             print(f"Error: {type(e).__name__}")
-            login()     
+            validar_login()     

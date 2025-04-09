@@ -3,7 +3,7 @@ class rh: #-----ruta de la clave generada para crear hash
     nArchivo = "/clave.key"
 
 class rc: #-----ruta de localizacion del archivo de conexion
-    uCARPETA = "database/"
+    uCARPETA = "database"
 
 class ac: #-----acceso al archivo conexion
     nArchivo = "prueba" # poner el nombre de tu archivo
