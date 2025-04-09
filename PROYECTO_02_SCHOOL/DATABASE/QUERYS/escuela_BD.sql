@@ -1,14 +1,23 @@
 USE escuela
+----GENERO---------------------------------------------------------------
+create table genero(
+id_genero int identity (1,1) primary key,
+nGenero varchar(20)
+);
+GO
 -----PERSONA---------------------------------------------------------------
 create table persona(
     id_persona int identity (1,1) primary key,
+    id_genero int, --<---------------------------------------------------
     primer_nombre varchar(10),
     segundo_nombre varchar(10),
     apellido_paterno varchar(10),
     apellido_materno varchar(10),
+    edad int, --<----------------------------------------------------------
     direccion varchar(100),
     correo_electronico varchar(50),
-    telefono varchar(10)
+    telefono varchar(10),
+    foreign key (id_genero) references genero(id_genero)
 )
 GO
 -----GRADO-----------------------------------------------------------------
@@ -57,13 +66,16 @@ create table estudiante(
     -- id_estudiante int identity (1,1) primary key,
     id_estudiante int primary key,
     id_grado int,
+    id_genero int, --<---------------------------------------------------
 	carnet varchar(15),
 	primer_nombre varchar(10),
     segundo_nombre varchar(10),
     apellido_paterno varchar(10),
     apellido_materno varchar(10),
+    edad int, --<---------------------------------------------------
     correo_electronico varchar(50),
-	foreign key (id_grado) references grado(id_grado)
+	foreign key (id_grado) references grado(id_grado),
+    foreign key (id_genero) references genero(id_genero)
 )
 GO
 -----MATRICULA-------------------------------------------------------------
