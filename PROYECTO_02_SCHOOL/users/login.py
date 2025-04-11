@@ -1,38 +1,40 @@
 import csv
 import os
-import users.users as users
+import users.users as u
+import roots.rutinhas as r2
+import database.conexion as conn
 import users.login_users as login_users
 import security.contrasena_encriptacion_y_desencriptacion as contrasena
-import roots.rutinhas as r2
 # ======= Función para iniciar sesión =======
 def validar_login():
     # while True:
         try:
             correo = input("Ingrese su correo: ").strip()
             contraseña=input("Ingrese su contraseña: ")
-            usuario= users.Users(correo,contraseña)
+            usuario= u.Users(correo,contraseña)
             login_usuario = login_users.Login(usuario.email,usuario.password)
-            
-        # ====================== HACER CAMBIO SI ES NECESRIO ===============================================
-            uCarpeta = r2.rc.uCARPETA
-            archivo = r2.ac.archivo
-        # ==================================================================================================
 
-            with open(f"{uCarpeta}/{archivo}",encoding="utf-8",) as file:
-                    encontrado = False  # # Variable para verificar si se encontró el usuario
-                    usuario = csv.reader(file)
-                    for row in  usuario:
-                        # print(sow[0],row[1],row[2]) # nombre, correo y contraseña       
-                        # Comparar correo y contraseña
-                        if row[1] == login_usuario.email and contrasena.desencriptar_clave.desencriptar(row[2][:]) == login_usuario.password:
-                            desen=contrasena.desencriptar_clave.desencriptar(row[2][:])
-                            print(f"\n✅ {row[0]} has hecho inicio de sesión exitoso con: {login_usuario.email}")
-                            encontrado=True # Marcamos que el usuario fue encontrado
-                            break 
-                    if not encontrado:                
-                        # des=contrasena.desencriptar_clave.desencriptar(row[2][:])
-                        print(f"\n❌ Correo o contraseña incorrectos. {desen}")
-        except UnboundLocalError as e:   
-            print("⚠️ Error: Ingrese un valor válido.")
+            with conn.get_connection() as conexion:
+                cursor1 = conexion.cursor()
+                cursor1.execute('''
+                SELECT p.primer_nombre, p.apellido_materno, lu.correo_electronico, lu.passwords
+                FROM login_usuario lu
+                JOIN empleado e ON e.id_empleado = lu.id_empleado
+                JOIN persona p ON p.id_persona = e.id_persona
+                WHERE lu.correo_electronico = ?
+''', (usuario.email))
+                row1 = cursor1.fetchone()
+                print(f"Buscando usuario con email: {usuario.email} y contraseña cifrada: {row1[3]}")
+                # print(row1,"estamos ready")
+                # ('Rosa', 'Sosa', 'rosalk6874@gmail.com', 'gAAAAABn3aCblNjbuLUkKyWaV57a0RUpfM9rvv4jYpt6LutaFl58vNgjLGGtWcMRtzWvRxtyc88ANvwIDQXJmPCMZnCZM24CLg==')
+                if row1 and contrasena.desencriptar_clave.desencriptar(row1[3]) == login_usuario.password:
+                    print(f"\n✅ {row1[0]} has hecho inicio de sesión exitoso con: {login_usuario.email}")
+                    return
+                else:
+                    print(f"\n❌ Correo o contraseña incorrectos. ")
+        except Exception as e:
+            print(f"\n❌ Ocurrió un error: {e} ")
             print(f"Error: {type(e).__name__}")
-            validar_login()     
+            validar_login() 
+        finally:
+            print("\n🔒 Finalizando proceso de inicio de sesión.")
