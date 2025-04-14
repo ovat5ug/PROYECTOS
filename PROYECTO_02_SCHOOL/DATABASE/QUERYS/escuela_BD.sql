@@ -22,13 +22,13 @@ GO
 create table persona(
     id_persona int identity (1,1) primary key,
     id_genero int, --<-------------------------------------------------------------
-    primer_nombre varchar(10),
-    segundo_nombre varchar(10),
-    apellido_paterno varchar(10),
-    apellido_materno varchar(10),
+    primer_nombre varchar(15),
+    segundo_nombre varchar(30),
+    apellido_paterno varchar(15),
+    apellido_materno varchar(30),
     edad int, --<------------------------------------------------------------------
-    direccion varchar(100),
-    correo_electronico varchar(50),
+    direccion varchar(200),
+    correo_electronico varchar(100),
     telefono varchar(10),
     foreign key (id_genero) references genero(id_genero)
 )
@@ -38,15 +38,15 @@ create table grado(
     id_grado int identity (1,1) primary key,
     nGrado varchar(20),
     aula varchar(20),
-    ubicacion varchar(50),
-    descripcion varchar(50)
+    ubicacion varchar(100),
+    descripcion varchar(100)
 )
 GO
 -----CARGO-------------------------------------------------------------------------
 create table cargo(
     id_cargo int identity (1,1) primary key,
     ncargo varchar(30),
-    descripcion varchar(100)
+    descripcion varchar(150)
 )
 GO
 -----ESTADO------------------------------------------------------------------------
@@ -69,8 +69,8 @@ GO
 create table materia(
 	id_materia int identity (1,1) primary key,
     id_empleado int,
-    nMateria varchar(20),
-    Descripcion varchar(100)
+    nMateria varchar(50),
+    Descripcion varchar(150)
 	foreign key (id_empleado) references empleado(id_empleado)
 )
 GO
@@ -81,12 +81,12 @@ create table estudiante(
     id_grado int,
     id_genero int, --<-------------------------------------------------------------
 	carnet varchar(15),
-	primer_nombre varchar(10),
-    segundo_nombre varchar(10),
-    apellido_paterno varchar(10),
-    apellido_materno varchar(10),
+	primer_nombre varchar(15),
+    segundo_nombre varchar(30),
+    apellido_paterno varchar(15),
+    apellido_materno varchar(30),
     edad int, --<------------------------------------------------------------------
-    correo_electronico varchar(50),
+    correo_electronico varchar(100),
 	foreign key (id_grado) references grado(id_grado),
     foreign key (id_genero) references genero(id_genero)
 )
@@ -108,7 +108,7 @@ create table inscripcion(
 	id_inscripcion int identity (1,1) primary key,
     id_matricula int,
     id_materia int,
-    horario varchar(15)
+    horario varchar(30)
 	foreign key (id_matricula) references matricula(id_matricula),
 	foreign key (id_materia) references materia(id_materia)
 )
@@ -127,7 +127,7 @@ create table calificaciones(
 	id_calificaciones int identity (1,1) primary key,
     id_materia int,
     id_estudiante int,
-	nMes varchar(15),
+	nMes varchar(20),
 	n_actividades numeric(4,2),
 	n_laboratorio numeric(4,2),
 	n_examen numeric(4,2),
