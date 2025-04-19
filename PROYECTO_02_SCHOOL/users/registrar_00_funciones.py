@@ -77,7 +77,7 @@ def nombre_competo():
     return P_nombre, S_nombre, P_apellido, S_apellido
 
 def cargo():
-    cargos_dict = {
+    cargos_dict = {# cargos_dict es un diccionario que contiene los cargos y sus respectivos ID
         1: "Director", 2: "Subdirector", 3: "Maestro de Matemáticas",
         4: "Maestro de Ciencias", 5: "Maestro de Sociales", 6: "Maestro de Lenguaje",
         7: "Maestro de Inglés", 8: "Bibliotecario", 9: "Secretario", 10: "Tesorero",
@@ -119,3 +119,40 @@ def cargo():
 
     print("❌ Nombre de cargo inválido.")
     return None
+
+def tipo_de_usuario(validacion):
+    ti_us_dic = {# ti_us_dic es un diccionario que contiene los tipos de usuario y sus respectivos ID
+    1: "Administrador", 2: "regular", 3: "Otros"
+    }
+    if validacion == "estudiantes" or validacion == "padres":
+        id_tipo_usuario = 2
+        descripcion = "Regular"
+        ti_us_input = "2"
+    else:
+        print("\n📌 Opciones disponibles:")
+        for id_tipo_usuario, descripcion in ti_us_dic.items():
+            print(f"{id_tipo_usuario}: {descripcion}")
+
+        ti_us_input = input("\nIngrese el número o nombre del tipo de usuario: ").strip().title()
+
+    # Validar si es un número
+
+    if 0 < ti_us_input.isdigit() <= 3:
+        id_tipo_usuario = int(ti_us_input)  # Convertir entrada a entero
+        
+        # Verificar si el ID está en el diccionario
+        if id_tipo_usuario in ti_us_dic:
+            return id_tipo_usuario, ti_us_dic[id_tipo_usuario]
+        else:
+            print("❌ Tipo de Usuario inválido.")
+            print("✅ intente nuevamente")        
+            return tipo_de_usuario(validacion)
+    elif ti_us_input.isalpha():            
+        # Validar si es un nombre
+        for id_tipo_usuario, descripcion in ti_us_dic.items():
+            if ti_us_input.lower() == descripcion.lower():  # Comparación en minúsculas para evitar problemas de formato
+                return id_tipo_usuario,descripcion
+            else:
+                print("❌ Tipo de Usuario inválido.")
+                print("✅ intente nuevamente")        
+                return tipo_de_usuario(validacion)

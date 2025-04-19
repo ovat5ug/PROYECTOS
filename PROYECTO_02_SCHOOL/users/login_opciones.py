@@ -20,6 +20,23 @@ def login():
                 # calculos_aritmeticos.operaciones_aritmeticas()
                 break
             elif opcion == "2":
+                print("\n📌 MENÚ:")                
+                print("1️⃣ Registrar empleado")
+                print("2️⃣ Registrar estudiante")
+                print("3️⃣ Registrar padre de familia")
+                opcion = input("\nSeleccione una opción: ").lower()
+                if opcion == "1" or opcion == "empleado":
+                    # Llama a la función para registrar empleado
+                    crear_archivo.docCreado("empleado")
+                elif opcion == "2" or opcion == "estudiante":
+                    # Llama a la función para registrar estudiante
+                    crear_archivo.docCreado("estudiante")
+                elif opcion == "3" or opcion == "padres":
+                    # Llama a la función para registrar padre de familia
+                    crear_archivo.docCreado("padres")
+                else:
+                    print("⚠ Opción inválida, intente de nuevo.")
+                    login()
                 crear_archivo.docCreado(False)# valida_cuantos_datos introducira el usuario
                 print("\n✅ Usuario Registrado...")
                 print("👋 Saliendo del sistema...")

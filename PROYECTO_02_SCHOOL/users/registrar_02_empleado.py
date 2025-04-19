@@ -1,10 +1,10 @@
 from datetime import datetime  # datetime
 from database import conexion as conn   
 from security import contrasena as pass1, contrasena_encriptacion_y_desencriptacion as pass2
-import users.registrar_00_funciones as calc
+import users.registrar_00_funciones as funcs
 import users.registrar_01_persona as registrar_persona
 
-def registrar_empleado(validar_cuantos_datos=True):
+def registrar_empleado(validar_cuantos_datos = True):
     with conn.get_connection() as conexion:
         try:
             if validar_cuantos_datos:
@@ -12,32 +12,40 @@ def registrar_empleado(validar_cuantos_datos=True):
             else:
                 cuantos_datos = 1  # Solo se registrara un solo usuario por login 
             for i in range(cuantos_datos):
-                id_persona=registrar_persona.registrar_persona(False)
-                id_cargo=calc.cargo()
+
+                carnet ='sin registrar'
+                tipo_de_usuario = funcs.tipo_de_usuario("empleado")
+                c_encriptada = pass1.contrasena_encriptada(carnet)
+                fecha = datetime.now()
+                fecha_actual = fecha.strftime("%Y-%m-%d")
+                hora_actual = fecha.strftime("%H:%M:%S")
                 # fecha_contratacion = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 
-                uID_empleado= conexion.cursor()
-                uID_empleado.execute("SELECT MAX(id_empleado) FROM empleado") # Obtener el último ID de la tabla empleado
-                row0 = uID_empleado.fetchone() 
-                ultimo_idE = row0[0] if row0[0] is not None else 0  # Retorna el valor mas alto de la tabla empleado
-                cursor0 = conexion.cursor()
-                query0 = f"DBCC CHECKIDENT ('empleado', RESEED, {ultimo_idE})"
-                cursor0.execute(query0)  # Reinicia el ID de la tabla empleado en "ultimo_idE"
+                r_persona = registrar_persona.registrar_persona(False)
+                id_cargo = funcs.cargo()
+
+                uID_empleado = conexion.cursor()
+                uID_empleado.execute("SELECT MAX(id_empleado) FROM empleado") # Obtenemos el último id_empleado de la tabla empleado
+                row1 = uID_empleado.fetchone() # Captura el ID generado
+                ultimo_idE = row1[0] if row1[0] is not None else 0  # row1[0] almacena valor mas alto del id_persona
+                cursor1 = conexion.cursor()
+                query1 = f"DBCC CHECKIDENT ('empleado', RESEED, {ultimo_idE})" # Reinicia el ID de la tabla empleado en "ultimo_idE"
+                cursor1.execute(query1)
                 conexion.commit()   # Confirma la transacción
 
-                uID_persona= conexion.cursor()
-                uID_persona.execute("SELECT MAX(id_persona) FROM persona") # Obtener el último ID de la tabla persona
-                row1 = uID_persona.fetchone() 
-                ultimo_idP = row1[0] if row1[0] is not None else 0  # Retorna el valor mas alto de la tabla persona
-                
-                id_persona= ultimo_idP  # ID para el nuevo registro de la persona actual
-                cursor1 = conexion.cursor()
-                cursor1.execute('''--insertar registro empleado
-                INSERT INTO empleado (id_persona,
-                id_cargo) VALUES (?,?) ''', 
-                (id_persona,id_cargo))            
-                conexion.commit() # Confirma la transacción
+                id_persona = r_persona[2]  # obtenemo id generado de la funcion registrar_persona
+                cursor2 = conexion.cursor()
+                cursor2.execute('''--insertar registro empleado
+                INSERT INTO empleado (id_persona, id_cargo) 
+                OUTPUT INSERTED.id_empleado, INSERTED.id_persona
+                VALUES (?,?) ''', 
+                (id_persona,id_cargo))
+                row2 = cursor2.fetchone()  # Captura el ID generado
+                conexion.commit()  # Confirma la transacción
+                id_empleado = row2[0] # row2[0] almacena valor del id_empleado
 
+                          # Usuario,Email,Password,id_tipo_de_usuario,Fecha,Hora,id_persona,tipo_de_usuario
+                return r_persona[0],r_persona[1],c_encriptada,tipo_de_usuario[0],fecha_actual,hora_actual,id_empleado,tipo_de_usuario[1]
         except Exception as e:
             conexion.rollback()  # Revierte los cambios en caso de error
             print("❌ Error en la transacción:", e)

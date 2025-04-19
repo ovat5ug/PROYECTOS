@@ -1,7 +1,7 @@
 from datetime import datetime  # datetime
 from database import conexion as conn   
 from security import contrasena as pass1, contrasena_encriptacion_y_desencriptacion as pass2
-import users.registrar_00_funciones as calc
+import users.registrar_00_funciones as funcs
 
 def registrar_estudiante(validar_cuantos_datos=True):
     with conn.get_connection() as conexion:
@@ -13,14 +13,14 @@ def registrar_estudiante(validar_cuantos_datos=True):
             for i in range(cuantos_datos):                
              
                 carnet='sin registrar'
-                nom_com=calc.nombre_competo()
-                id_grado=calc.grado()
-                id_genero=calc.genero()  
+                nom_com=funcs.nombre_competo()
+                id_grado=funcs.grado()
+                id_genero=funcs.genero()
+                tipo_de_usuario=funcs.tipo_de_usuario("estudiantes") 
                 edad=int(input("ingrese la edad: "))
                 correo=input("ingrese el correo: ").lower()
                 estado=1
 
-                tipo_de_usuario="Regular"
                 c_encriptada= pass1.contrasena_encriptada(carnet)
                 fecha = datetime.now()
                 fecha_actual = fecha.strftime("%Y-%m-%d")
@@ -44,6 +44,7 @@ def registrar_estudiante(validar_cuantos_datos=True):
                 row1 = cursor1.fetchone()  # Captura el ID generado
                 conexion.commit()  # Confirma la transacción
                 id_estudiante = row1[0]# asignando el id_estudiante al valor recuperado de cursor1
+
                 cursor2 = conexion.cursor()
                 cursor2.execute('''--insertar registro estudiante
                 INSERT INTO estudiante (id_estudiante,id_grado,id_genero,carnet,primer_nombre,
@@ -51,7 +52,9 @@ def registrar_estudiante(validar_cuantos_datos=True):
                 VALUES (?,?,?,?,?,?,?,?,?,?) ''', 
                 (id_estudiante,id_grado,id_genero,carnet,nom_com[0],nom_com[1], nom_com[2], nom_com[3],edad,correo))
                 conexion.commit() # Confirma la transacción
-            # return f'"registros ingresados:" {id_estudiante},{id_grado},{id_genero},{carnet},{nombre},{nombre}, {apellido}, {apellido},{edad},{correo}'
+
+                # Usuario,Email,Password,id_tipo_de_usuario,Fecha,Hora,id_estudiante,Tipo_de_Usuario
+                return nom_com[0],correo,c_encriptada,tipo_de_usuario[0],fecha_actual,hora_actual,id_estudiante,tipo_de_usuario[1]
         except Exception as e:
             conexion.rollback()  # Revierte los cambios en caso de error
             print("❌ Error en la transacción:", e)

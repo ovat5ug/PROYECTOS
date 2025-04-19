@@ -3,7 +3,7 @@ import users.registrar_02_empleado as registrar_empleado
 import users.registrar_03_padres_estudiantes as registrar_padre_familia
 import users.registrar_04_estudiante as registrar_estudiante
 
-if __name__ == "__main__" or __name__ == "users.registrar_00_opciones":
+if __name__ == "__main__" or __name__ != True:
     while True:
         print("\n📌 MENÚ:")
         print("1️⃣ Registrar Persona")
