@@ -1,7 +1,5 @@
 from cryptography.fernet import Fernet
-import security.contrasena_configuracion_de_clave as c2
-import base64
-import os
+from security import contrasena_configuracion_de_clave as c2
 
 class encriptar_clave(c2.hacer_clave):
     def __init__(self, contrasena):

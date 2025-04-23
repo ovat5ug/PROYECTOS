@@ -1,8 +1,9 @@
-from datetime import datetime  # datetime
-from database import conexion as conn   
-from security import contrasena as pass1, contrasena_encriptacion_y_desencriptacion as pass2
-import users.registrar_00_funciones as funcs
-import users.registrar_01_persona as registrar_persona
+from datetime import datetime
+from database import conexion as conn
+from security import contrasena as passw 
+from security.contrasena_encriptacion_y_desencriptacion import desencriptar_clave as des_clave
+from .registrar_00_funciones import tipo_de_usuario as t_usuario, cargo 
+from .registrar_01_persona import registrar_persona
 
 def registrar_empleado(validar_cuantos_datos = True):
     with conn.get_connection() as conexion:
@@ -14,15 +15,16 @@ def registrar_empleado(validar_cuantos_datos = True):
             for i in range(cuantos_datos):
 
                 carnet ='sin registrar'
-                tipo_de_usuario = funcs.tipo_de_usuario("empleado")
-                c_encriptada = pass1.contrasena_encriptada(carnet)
+                tipo_de_usuario = t_usuario("empleado")
+                c_encriptada = passw.contrasena_encriptada(carnet)
+                c_desencriptada = des_clave.desencriptar(c_encriptada)
                 fecha = datetime.now()
                 fecha_actual = fecha.strftime("%Y-%m-%d")
                 hora_actual = fecha.strftime("%H:%M:%S")
                 # fecha_contratacion = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 
-                r_persona = registrar_persona.registrar_persona(False)
-                id_cargo = funcs.cargo()
+                r_persona = registrar_persona(False)
+                id_cargo = cargo()
 
                 uID_empleado = conexion.cursor()
                 uID_empleado.execute("SELECT MAX(id_empleado) FROM empleado") # Obtenemos el último id_empleado de la tabla empleado

@@ -67,13 +67,13 @@ def genero():
     return id_genero
 
 def nombre_competo():
-    nombre=input("Favor ingresar los nombres: ").strip().title().split()
-    P_nombre=nombre[0]
-    S_nombre=" ".join(nombre[1:])
+    nombre = input("Favor ingresar los nombres: ").strip().title().split()
+    P_nombre = nombre[0]
+    S_nombre = " ".join(nombre[1:])
 
     apellido=input("Favor ingresar los apellidos: ").strip().title().split()
-    P_apellido=apellido[0]
-    S_apellido=" ".join(apellido[1:])
+    P_apellido = apellido[0]
+    S_apellido = " ".join(apellido[1:])
     return P_nombre, S_nombre, P_apellido, S_apellido
 
 def cargo():
@@ -156,3 +156,30 @@ def tipo_de_usuario(validacion):
                 print("❌ Tipo de Usuario inválido.")
                 print("✅ intente nuevamente")        
                 return tipo_de_usuario(validacion)
+
+def carnet():
+    while True:
+        print("\n📌 MENÚ:")
+        print("1️⃣ Introducir carnet")
+        print("2️⃣ sin registrar carnet")
+        print("3️⃣ nose")
+        
+        opcion = input("\nSeleccione una opción: ")
+
+        if opcion == "1":
+            print("\n👤 Registrar carnet")
+            print("===================================")
+            input_carnet = input("\nintroducir su carnet: ")
+            return input_carnet
+        elif opcion == "2":
+            print("\n👔 carnet generado")
+            print("===================================")
+            input_carnet = 'Sin Registrar'
+            return input_carnet
+        elif opcion == "3":
+            print("\n👔 carnet_generado")
+            print("===================================")
+            input_carnet = 'Sin Registrar'
+            return input_carnet
+        else:
+            print("\n⚠ Opción inválida, intente de nuevo.")

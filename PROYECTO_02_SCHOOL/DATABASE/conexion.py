@@ -1,5 +1,6 @@
 import pyodbc
-import config.database_config as cr
+from config import database_config as cr
+# import config.database_config as cr
 
 def get_connection():
     try:

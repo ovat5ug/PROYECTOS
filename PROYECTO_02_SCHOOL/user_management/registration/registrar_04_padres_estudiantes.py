@@ -1,9 +1,10 @@
 from datetime import datetime  # datetime
-from database import conexion as conn   
-from security import contrasena as pass1, contrasena_encriptacion_y_desencriptacion as pass2
-import users.registrar_00_funciones as funcs
-import users.registrar_01_persona as registrar_persona
-import users.registrar_04_estudiante as registrar_estudiante
+from database import conexion as conn
+from security import contrasena as passw
+from security.contrasena_encriptacion_y_desencriptacion import desencriptar_clave as des_clave
+from .registrar_00_funciones import tipo_de_usuario as t_usuario
+from .registrar_01_persona import registrar_persona
+from .registrar_03_estudiante import registrar_estudiante
 
 def registrar_padres_estudiantes(validar_cuantos_datos=True):
     with conn.get_connection() as conexion:
@@ -15,14 +16,15 @@ def registrar_padres_estudiantes(validar_cuantos_datos=True):
             for i in range(cuantos_datos):
 
                 dui='sin registrar'
-                tipo_de_usuario=funcs.tipo_de_usuario("padres")
-                c_encriptada= pass1.contrasena_encriptada(dui)
+                tipo_de_usuario = t_usuario("padres")
+                c_encriptada = passw.contrasena_encriptada(dui)
+                c_desencriptada = des_clave.desencriptar(c_encriptada)
                 fecha = datetime.now()
                 fecha_actual = fecha.strftime("%Y-%m-%d")
                 hora_actual = fecha.strftime("%H:%M:%S")
 
-                r_persona=registrar_persona.registrar_persona(False)
-                r_estudiante=registrar_estudiante.registrar_estudiante(False)
+                r_persona = registrar_persona(False)
+                r_estudiante = registrar_estudiante(False)
                 id_persona = r_persona[2]  # obtenemo id generado de la funcion registrar_persona
                 id_estudiante = r_estudiante[6]  # obtenemo id generado de la funcion registrar_estudiante
 

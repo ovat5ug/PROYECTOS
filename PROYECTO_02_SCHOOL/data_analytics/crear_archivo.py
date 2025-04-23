@@ -1,9 +1,7 @@
-import os
-import csv
-import data_analytics.importar_data as importar_data
-import users.registrar_02_empleado as r_empleado
-import users.registrar_03_padres_estudiantes as r_padres
-import users.registrar_04_estudiante as r_estudiante
+from data_analytics import importar_data
+from user_management.registration import registrar_02_empleado as r_empleado
+from user_management.registration import registrar_03_estudiante as r_estudiante
+from user_management.registration import registrar_04_padres_estudiantes as r_padres
 import roots.rutinhas as r3
 import database.conexion as conn
 

@@ -1,5 +1,5 @@
-from database import conexion as conn   
-import users.registrar_00_funciones as funcs
+from database import conexion as conn
+from .registrar_00_funciones import nombre_competo,genero
 
 def registrar_persona(validar_cuantos_datos=True):
     with conn.get_connection() as conexion:
@@ -12,14 +12,14 @@ def registrar_persona(validar_cuantos_datos=True):
                 aP='su'
             for i in range(cuantos_datos):
                                
-                nom_com = funcs.nombre_competo()
-                id_genero = funcs.genero()  
+                nom_com = nombre_competo()
+                id_genero = genero()  
                 edad = int(input(f"ingrese {aP} edad: "))
                 correo = input(f"ingrese {aP} correo: ").lower()
                 direccion = input(f"ingrese {aP} direccion: ").lower()
                 telefono = input(f"ingrese el telefono: ").lower()  
                 
-                uID_persona= conexion.cursor()
+                uID_persona = conexion.cursor()
                 uID_persona.execute("SELECT MAX(id_persona) FROM persona") # Obtenemos el último id_persona de la tabla persona
                 row1 = uID_persona.fetchone() # Captura el ID generado
                 ultimo_idP = row1[0] if row1[0] is not None else 0  # row1[0] almacena valor mas alto del id_persona

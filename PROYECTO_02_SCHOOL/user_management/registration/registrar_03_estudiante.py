@@ -1,7 +1,8 @@
-from datetime import datetime  # datetime
-from database import conexion as conn   
-from security import contrasena as pass1, contrasena_encriptacion_y_desencriptacion as pass2
-import users.registrar_00_funciones as funcs
+from datetime import datetime
+from database import conexion as conn
+from security.contrasena_encriptacion_y_desencriptacion import desencriptar_clave as des_clave
+from security import contrasena as passw
+from .registrar_00_funciones import nombre_competo,grado,genero,tipo_de_usuario as t_usuario
 
 def registrar_estudiante(validar_cuantos_datos=True):
     with conn.get_connection() as conexion:
@@ -12,16 +13,17 @@ def registrar_estudiante(validar_cuantos_datos=True):
                 cuantos_datos = 1  # Solo se registrara un solo usuario por login 
             for i in range(cuantos_datos):                
              
-                carnet='sin registrar'
-                nom_com=funcs.nombre_competo()
-                id_grado=funcs.grado()
-                id_genero=funcs.genero()
-                tipo_de_usuario=funcs.tipo_de_usuario("estudiantes") 
-                edad=int(input("ingrese la edad: "))
-                correo=input("ingrese el correo: ").lower()
-                estado=1
+                carnet = 'sin registrar'
+                nom_com = nombre_competo()
+                id_grado = grado()
+                id_genero = genero()
+                tipo_de_usuario = t_usuario("estudiantes") 
+                edad = int(input("ingrese la edad: "))
+                correo = input("ingrese el correo: ").lower()
+                estado = 1
 
-                c_encriptada= pass1.contrasena_encriptada(carnet)
+                c_encriptada = passw.contrasena_encriptada(carnet)
+                c_desencriptada = des_clave.desencriptar(c_encriptada)
                 fecha = datetime.now()
                 fecha_actual = fecha.strftime("%Y-%m-%d")
                 hora_actual = fecha.strftime("%H:%M:%S")    
